@@ -33,18 +33,20 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ikd5g"]
-radius = 45.0
+radius = 24.0
 
 [node name="enemy" type="RigidBody2D"]
+collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_a7d0n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_u6on0")
 animation = &"yellow_beetle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-8, -1)
+position = Vector2(-3, 0)
 shape = SubResource("CircleShape2D_ikd5g")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
