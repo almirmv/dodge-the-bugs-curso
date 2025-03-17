@@ -1,0 +1,100 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8dkonfra4hjq"]
+
+[ext_resource type="FontFile" uid="uid://cwbt2ugsjq30h" path="res://font/Dihil.ttf" id="1_73jnp"]
+[ext_resource type="Script" uid="uid://ewmbwumm84w5" path="res://scripts/hud.gd" id="1_448xx"]
+[ext_resource type="StyleBox" uid="uid://biw7ehn6wtfgq" path="res://prefabs/btn_style.tres" id="2_3ehsa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_448xx"]
+bg_color = Color(0.0763801, 0.375705, 0.568949, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 5.0
+expand_margin_top = 9.0
+expand_margin_right = 18.0
+
+[sub_resource type="InputEventAction" id="InputEventAction_448xx"]
+action = &"start_game"
+
+[sub_resource type="Shortcut" id="Shortcut_d7ypv"]
+events = [SubResource("InputEventAction_448xx")]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_448xx")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -39.0
+offset_top = 21.0
+offset_right = 40.0
+offset_bottom = 85.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_73jnp")
+theme_override_font_sizes/font_size = 64
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MessageLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -139.0
+offset_top = -99.0
+offset_right = 139.0
+offset_bottom = 99.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_73jnp")
+theme_override_font_sizes/font_size = 64
+text = "Dodge the Bugs"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="StartButton" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -173.0
+offset_right = 131.0
+offset_bottom = -109.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.878431, 0.764706, 0.176471, 1)
+theme_override_colors/font_hover_color = Color(0.82, 0.642333, 0, 1)
+theme_override_fonts/font = ExtResource("1_73jnp")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/focus = ExtResource("2_3ehsa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_448xx")
+theme_override_styles/pressed = ExtResource("2_3ehsa")
+theme_override_styles/normal = ExtResource("2_3ehsa")
+shortcut = SubResource("Shortcut_d7ypv")
+text = "Start"
+
+[node name="MessageTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="pressed" from="Control/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]

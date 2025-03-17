@@ -2,10 +2,6 @@ extends Node2D
 
 @export var bug_scene : PackedScene
 var score = 0
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	new_game()
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -15,11 +11,18 @@ func _process(delta: float) -> void:
 func game_over() -> void:
 	$ScoreTimer.stop()
 	$BugTimer.stop()
+	$HUD.show_game_over()
+	$bgMusic.stop()
+	$gameOverSound.play()
 
 func new_game() -> void:
-	var score = 0
+	score = 0
 	$StartTimer.start()
 	$player.start_pos($StartPosition.position)
+	$HUD.update_score(score)
+	$HUD.show_message("Get Ready!")
+	get_tree().call_group("bugs", "queue_free") # limpar todos os bugs antes de iniciar
+	$bgMusic.play()
 
 
 func _on_bug_timer_timeout() -> void:
@@ -41,6 +44,7 @@ func _on_bug_timer_timeout() -> void:
 
 func _on_score_timer_timeout() -> void:
 	score += 1
+	$HUD.update_score(score) # atualiza score na tela
 
 
 func _on_start_timer_timeout() -> void:
